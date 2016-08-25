@@ -1,14 +1,14 @@
 [
 {
   "modid": "${modid}",
-  "name": "Shadow Tech",
-  "description": "Placeholder Text here.",
+  "name": "Inanis",
+  "description": "An easy(ish) to access void world for building those overly large contraptions ",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
-  "updateUrl": "",
+  "updateUrl": "https://github.com/ShadowLordAlpha/Inanis/blob/master/update.json",
   "authorList": ["ShadowLordAlpha"],
-  "credits": "erogenousbeef for some of the ideas used",
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import shadowlordalpha.inanis.common.item.InanisItem;
 import shadowlordalpha.shadowcore.proxy.IProxy;
 
 @Mod(modid = InanisConfig.MODID, version = InanisConfig.VERSION)
@@ -20,7 +21,7 @@ public class Inanis {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		
+		InanisItem.createItems();
 	}
 	
 	@EventHandler

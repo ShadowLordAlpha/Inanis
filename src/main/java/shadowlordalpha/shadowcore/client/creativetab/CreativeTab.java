@@ -21,12 +21,8 @@ package shadowlordalpha.shadowcore.client.creativetab;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.EnumEnchantmentType;
-import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * The CreativeTab class is an extension of the CreativeTabs class in order to provide more flexibility to the class. It
@@ -39,13 +35,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class CreativeTab extends CreativeTabs {
 
-	// Why did I make the default icon dirt?
-	private Item iconItem = Item.getItemFromBlock(Blocks.DIRT);
-	private int itemDamage = 0;
-	private boolean drawTitle = true;
-	private boolean hidePlayerInventory = true;
-	private boolean hasScrollbar = true;
-	private ItemStack iconItemStack;
+	private Item iconItem;
 
 	/**
 	 * Creates a new CreativeTab for use in Minecraft by the Creative Menu GUI.
@@ -58,140 +48,39 @@ public class CreativeTab extends CreativeTabs {
 	}
 
 	/**
-	 * Creates a new CreativeTab for use in Minecraft by the Creative Menu GUI.
-	 * <p>
-	 * <b>WARNING:</b> <br>
-	 * Setting the index using this method will increase the size of the
-	 * {@link net.minecraft.creativetab.CreativeTabs.CREATIVE_TAB_ARRAY CREATIVE_TAB_ARRAY} will overwrite whatever is
-	 * currently in that tab spot <b>NOT</b> shift the array and then insert the new tab into the correct spot as well
-	 * as create a new array with an extra blank spot. As such it is not recommended to use this constructor unless you
-	 * know what you are doing.
+	 * Get the Item to use as the Creative Tab's Icon. This will return the Item set or {@code Items.BOOK} if the item
+	 * to use as the icon is {@code null}.
 	 * 
-	 * @param index The index used to insert the new tab into the
-	 * {@link net.minecraft.creativetab.CreativeTabs.CREATIVE_TAB_ARRAY CREATIVE_TAB_ARRAY}
-	 * @param label The name used for the tab similar to the name used in the {@code setUnlocalizedName} method in the
-	 * {@link net.minecraft.item.Item Item} class.
+	 * @return The Item to use as the Creative Tab's Icon.
 	 */
-	public CreativeTab(int index, String label) {
-		super(index, label);
-	}
-
-	/**
-	 * Set a custom texture to be used as the background of the Creative Inventory.
-	 * 
-	 * @param texture The texture to set as the new background.
-	 */
-	public CreativeTab setBackgroundImageName(String texture) {
-		super.setBackgroundImageName(texture);
-		return this;
-	}
-
-	// This could be useful for something though I'm not sure what so for now I won't include it
-
-	/**
-	 * Returns the {@link ItemStack} of the tab Icon. This is what is actually used to draw the Icon and not the Item
-	 * itself.
-	 * 
-	 * @return The {@link ItemStack} of the tab Icon.
-	 */
-	@SideOnly(Side.CLIENT)
-	public ItemStack getIconItemStack() {
-		if (this.iconItemStack == null) {
-			this.iconItemStack = new ItemStack(this.getTabIconItem(), 1, this.getIconItemDamage());
-		} else {
-			this.iconItemStack = new ItemStack(this.iconItemStack.getItem(), this.iconItemStack.stackSize + 1,
-					this.getIconItemDamage());
-		}
-
-		return this.iconItemStack;
-	}
-
-	public CreativeTab setIconItemStack(ItemStack itemStack) {
-
-		return this;
-	}
-
-	@SideOnly(Side.CLIENT)
+	@Override
 	public Item getTabIconItem() {
-		return this.iconItem;
+
+		if(this.iconItem != null) { return this.iconItem; }
+
+		// I don't like the missing texture so I set it to be a book if no item is supplied to be the icon
+		return Items.BOOK;
 	}
 
-	public CreativeTab setTabIconItem(Item item) {
-		this.iconItem = item;
-		return this;
-	}
-
-	public CreativeTab setTabIconItem(Block block) {
-		return this.setTabIconItem(Item.getItemFromBlock(block));
-	}
-
-	@SideOnly(Side.CLIENT)
-	public int getIconItemDamage() {
-		return this.itemDamage;
-	}
-
-	public CreativeTab setIconItemDamage(int itemDamage) {
-		this.itemDamage = itemDamage;
-		return this;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public boolean drawInForegroundOfTab() {
-		return false;
-		// return this.drawTitle;
-	}
-
-	public CreativeTab setDrawTitle(boolean drawTitle) {
-		this.drawTitle = drawTitle;
-		return this;
-	}
-
-	public CreativeTab setNoTitle() {
-		this.drawTitle = false;
-		super.setNoTitle();
-		return this;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public boolean shouldHidePlayerInventory() {
-		return hasScrollbar;
-	}
-
-	public CreativeTab setHidePlayerinventory(boolean hidePlayerInventory) {
-		this.hidePlayerInventory = hidePlayerInventory;
-		return this;
-	}
-
-	public CreativeTab setNoScrollbar() {
-		this.hasScrollbar = false;
-		super.setNoScrollbar();
+	/**
+	 * Sets the Item that should be used for the icon.
+	 * 
+	 * @param iconItem The Item to be used as the icon.
+	 * @return The calling object. Useful for method chaining.
+	 */
+	public CreativeTab setTabIconItem(Item iconItem) {
+		this.iconItem = iconItem;
 		return this;
 	}
 
 	/**
-	 * Sets the enchantment types for populating this tab with enchanting books
+	 * Sets the Block that should be used for the icon. This method is the same as calling
+	 * {@code CreativeTab.setTabIconItem(Item.getItemFromBlock(iconBlock));}.
+	 * 
+	 * @param iconBlock The Block to be used as the icon.
+	 * @return The calling object. Useful for method chaining.
 	 */
-	public CreativeTab setRelevantEnchantmentTypes(EnumEnchantmentType... types) {
-		super.setRelevantEnchantmentTypes(types);
-		return this;
-	}
-
-	/**
-	 * Determines if the search bar should be shown for this tab.
-	 *
-	 * @return True to show the bar
-	 */
-	public boolean hasSearchBar() {
-		return true;
-	}
-
-	/**
-	 * Gets the width of the search bar of the creative tab, use this if your creative tab name overflows together with
-	 * a custom texture.
-	 *
-	 * @return The width of the search bar, 89 by default
-	 */
-	public int getSearchbarWidth() {
-		return 89;
+	public CreativeTab setTabIconBlock(Block iconBlock) {
+		return setTabIconItem(Item.getItemFromBlock(iconBlock));
 	}
 }

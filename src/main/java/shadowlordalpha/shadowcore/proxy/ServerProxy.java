@@ -1,6 +1,6 @@
 package shadowlordalpha.shadowcore.proxy;
 
 
-public class ServerProxy {
+public class ServerProxy extends CommonProxy {
 
 }

@@ -1,0 +1,10 @@
+{
+	"homepage": "https://github.com/ShadowLordAlpha/Inanis",
+	"promos": {
+		"1.10.2-latest": "v0.1.0-alpha",
+		"1.10.2-recomended": "v0.1.0-alpha"
+	},
+	"1.10.2": {
+		"v0.1.0-alpha": "Initial alpha release. Void shard item dropped from mobs and a void portal to a void world for building"
+	}
+}
